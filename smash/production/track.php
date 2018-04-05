@@ -49,7 +49,7 @@
               url: 'images/bike.png', // image is 512 x 512
               scaledSize : new google.maps.Size(32, 42)
             };
-      map  = new google.maps.Map(document.getElementById('map'), {center:{lat:lat,lng:lng},zoom:12});
+      map  = new google.maps.Map(document.getElementById('map'), {center:{lat:lat,lng:lng},zoom:13});
       mark = new google.maps.Marker({position:{lat:lat, lng:lng}, map:map, icon:image});
    
       };

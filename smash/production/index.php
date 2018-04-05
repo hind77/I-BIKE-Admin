@@ -13,27 +13,27 @@
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-"></i> <font color="white">Total stations</font></span>
-              <div class="count" id="trucks"><font color="white">143</font></div>
+              <div class="count" id="trucks"><font color="white">120</font></div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-bicycle"></i> <font color="white">total bikes</font></span>
-              <div class="count" id="time"><font color="white">123</font></div>
+              <div class="count" id="time"><font color="white">10</font></div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-bicycle"></i><font color="white"> Total used bikes</font></span>
-              <div class="count green" id="bins"><font color="white">2,500</font></div>
+              <div class="count green" id="bins"><font color="white">200</font></div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-users"></i><font color="white"> Total users</font></span>
-              <div class="count" id="fuel"><font color="white">989</font></div>
+              <div class="count" id="fuel"><font color="white">70</font></div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-road"></i><font color="white"> Total KMs</font></span>
-              <div class="count" id="distance"><font color="white">2,315</font></div>
+              <div class="count" id="distance"><font color="white">150</font></div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-clock-o"></i><font color="white">Total hours</font></span>
-              <div class="count"><font color="white">7325</font></div>
+              <div class="count"><font color="white">300</font></div>
             </div>
           </div>
           <!-- /top tiles -->
@@ -57,7 +57,25 @@
                 </div> -->
 
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <canvas id="chart_index" class="demo-placeholder"></canvas> 
+                  <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+  <script>
+var trace1 = {
+  x: ['Total Bikes', 'Total Stations', 'Total Used Bikes', 'Total Users', 'Total KMs', 'Total Hours'],
+  y: [120, 10, 200, 70, 150, 300],
+  marker:{
+    color: ['rgb(192, 232, 173)', 'rgb(109, 24, 45)', 'rgb(46, 138, 215)', 'rgb(183, 138, 215)', 'rgb(236, 252, 67)', 'rgb(255, 142, 30)']
+  },
+  type: 'bar'
+};
+
+var data = [trace1];
+
+var layout = {
+  title: 'I-Bike'
+};
+
+Plotly.newPlot('myDiv', data, layout);
+  </script>
                 </div>
                 
 
@@ -72,64 +90,7 @@
      </div>
    </div>
 
-   <script type="text/javascript">
-
-    $.ajax({
-      url: "ajax/getCollectedBikes.php",
-      success: function(data){
-        var labels = [];
-        var datasets = [];
-        datasets.push('0');
-        for(var i=0; i<data.data.length; i++){
-          labels.push(data.data[i].label);
-         // datasets.push(data.data[i].collected);
-          
-        }
-        var ctx = document.getElementById("chart_index").getContext('2d');
-          var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: labels,
-              datasets: [{
-                label: "used bikes",
-                data: datasets
-              }]
-            }
-          });
-      }
-    });
-     
-     $(document).ready(function(){
-        $.ajax({
-          url: 'ajax/getHistory.php',
-          type: 'GET',
-          success: function(data){
-            console.log(data.changed);
-            if(data.code == '200'){
-              
-              var distance = 0;
-              var time = 0;
-           
-              var oil_spent = 0;  
-              for(var i=0; i < data.data.length; i++){
-                distance += parseInt(data.data[i].kilometers);
-                time += parseInt(data.data[i].duration);
-                //collected_bins += parseInt(data.data[i].collected_bins);
-              }
-
-              $("#distance").text(distance);
-              $("#time").text(time);
-              //$("#bins").text(collected_bins);
-              
-              $("#fuel").text(parseInt(distance/3));
-              
-            }
-          }
-        });
-
-
-     });
-   </script>
+  
 <!-- Bootstrap -->
 <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -173,6 +134,7 @@
 
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
+
 
 </body>
 </html>

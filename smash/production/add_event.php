@@ -13,7 +13,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
               <div class="x_title">
-                <h2>Add Users   </h2>
+                <h2>Add Event </h2>
                 <ul class="nav navbar-right panel_toolbox">
                 </ul>
                 <div class="clearfix"></div>
@@ -21,30 +21,26 @@
               <div class="x_content">
                 <form>
                   <div class="form-group col-md-6">
-                    <label for="recipient-name" class="form-control-label">First name</label>
-                    <input type="text" class="form-control" id="fname">
+                    <label for="recipient-name" class="form-control-label">Event Title</label>
+                    <input type="text" class="form-control" id="name">
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="message-text" class="form-control-label">Last name</label>
-                    <input type="text" class="form-control" id="lname">
+                    <label for="message-text" class="form-control-label">Description</label>
+                    <textarea class="form-control" id="description"></textarea> 
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="message-text" class="form-control-label">Username</label>
-                    <input type="text" class="form-control" id="username">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                    <label for="message-text" class="form-control-label">Date</label>
+                    <input type="date" class="form-control" id="date">
+
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="message-text" class="form-control-label">Password</label>
-                    <input type="password" class="form-control" id="password">
-                  </div>  
-                  <div class="form-group col-md-6">
-                    <label for="message-text" class="form-control-label">Email</label>
-                    <input type="text" class="form-control" id="email">
-                  </div>  
+                 
+               
                   
                 </form>
                 <br>
                 <div class="form-group col-md-6">
-                    <button class="btn btn-primary " onclick="adduser();"> Add User</button>
+                    <button class="btn btn-primary " onclick="addevent();"> Add Event</button>
                   </div>
               </div>
             </div>
@@ -55,21 +51,24 @@
    </div>
 
    <script type="text/javascript">
-     function adduser(){
-        var fname = $("#fname").val();
-        var lname = $("#lname").val();
-        var username = $("#username").val();
-        var password = $("#password").val();
-        var email = $("#email").val();
+     function addevent(){
+        var name = $("#name").val();
+        var description = $("#description").val();
+        var date = $("#date").val();
+       
 
 
         $.ajax({
-         url: "ajax/addUser.php?fname=" + fname + "&lname=" + lname + "&username=" + username + "&password=" + password + "&email=" + email,
-         type: 'GET',
+         
+             type: "GET",
+            url: "ajax/addEvent.php",
+            data: {name:name,description:description,date:date},
+            dataType: "JSON",
+        
           success: function(data){
             if(data.code == "200"){
 
-              window.location.href = "users.php";
+             window.alert("the event is added");
               
             }else{
               window.alert("There was a problem adding the user");

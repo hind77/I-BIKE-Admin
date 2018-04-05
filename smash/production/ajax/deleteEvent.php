@@ -7,13 +7,12 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
 		$result = array();
 		include '../includes/db.php';
-		$query = $pdo->query('DELETE FROM `bikes` WHERE id_bike='.$_GET['id']);
+		$query = $pdo->query('DELETE FROM events WHERE id='.$_GET['id']);
 
 		if($query){
 			$result['code'] = '200';
 			echo json_encode($result);
 		}
-	
 	}
 }
 ?>

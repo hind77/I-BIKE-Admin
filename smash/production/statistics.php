@@ -57,30 +57,23 @@
         var value = e.options[e.selectedIndex].value;
 
         if(value == '1'){
-          $.ajax({
-            url: "ajax/getCollectedBikes.php",
-            success: function(data){
-              var labels = [];
-              var datasets = [];
-              datasets.push('0');
-              for(var i=0; i<data.data.length; i++){
-                labels.push(data.data[i].label);
-               // datasets.push(data.data[i].collected);
-                
-              }
-              var ctx = document.getElementById("chart_index").getContext('2d');
-                var myChart = new Chart(ctx, {
-                  type: 'line',
-                  data: {
-                    labels: labels,
-                    datasets: [{
-                      label: "Used bikes",
-                      data: datasets
-                    }]
-                  }
-                });
-            }
-          });
+          var trace1 = {
+  x: ['Total Bikes', 'Total Stations', 'Total Used Bikes', 'Total Users', 'Total KMs', 'Total Hours'],
+  y: [120, 10, 200, 70, 150, 300],
+  marker:{
+    color: ['rgb(192, 232, 173)', 'rgb(109, 24, 45)', 'rgb(46, 138, 215)', 'rgb(183, 138, 215)', 'rgb(236, 252, 67)', 'rgb(255, 142, 30)']
+  },
+  type: 'bar'
+};
+
+var data = [trace1];
+
+var layout = {
+  title: 'I-Bike'
+};
+
+Plotly.newPlot('myDiv', data, layout);
+         }
         }else if(value == "2"){
           $.ajax({
             url: "ajax/getCollectedBikes.php",
